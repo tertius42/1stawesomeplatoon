@@ -14,6 +14,7 @@ int main(int argc, char * argv[]) {
 		}
 		pclose(wget);
 
+		printf("converting...");
 		fb2rss = popen("fb2rss posts.html -oposts.xml", "r");
 		if (!fb2rss) {
 			fprintf(stderr, "error: fb2rss isn't available\n");
@@ -21,21 +22,24 @@ int main(int argc, char * argv[]) {
 		}
 		pclose(fb2rss);
 
-		git = popen("git commit -a", "r");
+		printf("commiting...");
+		git = popen("git commit -a -m \"auto-commit by wrapper\"", "r");
 		if (!git) {
 			fprintf(stderr, "error: git isn't available\n");
 			return 0;
 		}
 		pclose(git);
 
+		printf("pushing...");
 		git = popen("git push", "r");
 		if (!git) {
 			fprintf(stderr, "error: git isn't available\n");
 			return 0;
 		}
 		pclose(git);
+		printf("done!");
 
-		usleep(60*1000000);
+		sleep(60);
 	}
 
 	return 0;
