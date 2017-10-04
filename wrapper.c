@@ -21,7 +21,7 @@ int main(int argc, char * argv[]) {
 		pclose(wget);
 
 		printf("converting...");
-		fb2rss = popen("fb2rss posts.html -oposts.1.xml", "r");
+		fb2rss = popen("./fb2rss posts.html -oposts.1.xml", "r");
 		if (!fb2rss) {
 			fprintf(stderr, "error: fb2rss isn't available\n");
 			return 0;
